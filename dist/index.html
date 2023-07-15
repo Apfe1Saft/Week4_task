@@ -9,8 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    body {
+  <style>body {
       
       background-color: #eceff1;
       font-family: "Roboto", sans-serif;
@@ -52,8 +51,7 @@
         text-align: center;
         padding: 10px;
       }
-    }
-  </style>
+    }</style>
 </head>
 <body>
   <nav>
@@ -70,41 +68,26 @@
 
   <div id="show-list"></div>
 
-  <script>
-    const form = document.querySelector('form');
-    const showList = document.getElementById('show-list');
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      const inputShow = document.getElementById('input-show');
-      const query = inputShow.value.trim();
-
-      if (query !== '') {
-        const url = `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`;
-
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            showList.innerHTML = '';
-
-            data.forEach(item => {
-              const show = item.show;
-              const showData = `
-                <div>
-                  <img src="${show.image && show.image.medium}">
-                  <div>
-                    <h1>${show.name}</h1>
-                    <p>${show.summary}</p>
-                  </div>
-                </div>
-              `;
-              showList.insertAdjacentHTML('beforeend', showData);
-            });
-          })
-      }
+  <script>var form = document.querySelector('form');
+var showList = document.getElementById('show-list');
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var inputShow = document.getElementById('input-show');
+  var query = inputShow.value.trim();
+  if (query !== '') {
+    var url = "https://api.tvmaze.com/search/shows?q=".concat(encodeURIComponent(query));
+    fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      showList.innerHTML = '';
+      data.forEach(function (item) {
+        var show = item.show;
+        var showData = "\n                <div>\n                  <img src=\"".concat(show.image && show.image.medium, "\">\n                  <div>\n                    <h1>").concat(show.name, "</h1>\n                    <p>").concat(show.summary, "</p>\n                  </div>\n                </div>\n              ");
+        showList.insertAdjacentHTML('beforeend', showData);
+      });
     });
-  </script>
+  }
+});</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
