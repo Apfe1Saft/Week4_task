@@ -82,7 +82,7 @@ form.addEventListener('submit', function (event) {
       showList.innerHTML = '';
       data.forEach(function (item) {
         var show = item.show;
-        var showData = "\n                <div>\n                  <img src=\"".concat(show.image && show.image.medium, "\">\n                  <div>\n                    <h1>").concat(show.name, "</h1>\n                    <p>").concat(show.summary, "</p>\n                  </div>\n                </div>\n              ");
+        var showData = "\n                <div class=\"show-data\">\n                  <img src=\"".concat(show.image && show.image.medium, "\">\n                  <div class=\"show-info\">\n                    <h1>").concat(show.name, "</h1>\n                    <p>").concat(show.summary, "</p>\n                  </div>\n                </div>\n              ");
         showList.insertAdjacentHTML('beforeend', showData);
       });
     });
