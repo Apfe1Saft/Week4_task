@@ -1,10 +1,33 @@
-import "./styles.css";
+const form = document.querySelector('form');
+    const showList = document.getElementById('show-list');
 
-document.getElementById("app").innerHTML = `
-<h1>Hello Vanilla!</h1>
-<div>
-  We use the same configuration as Parcel to bundle this sandbox, you can find more
-  info about Parcel 
-  <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
-</div>
-`;
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const inputShow = document.getElementById('input-show');
+      const query = inputShow.value.trim();
+
+      if (query !== '') {
+        const url = `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`;
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            showList.innerHTML = '';
+
+            data.forEach(item => {
+              const show = item.show;
+              const showData = `
+                <div>
+                  <img src="${show.image && show.image.medium}">
+                  <div>
+                    <h1>${show.name}</h1>
+                    <p>${show.summary}</p>
+                  </div>
+                </div>
+              `;
+              showList.insertAdjacentHTML('beforeend', showData);
+            });
+          })
+      }
+    });
